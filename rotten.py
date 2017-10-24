@@ -5,13 +5,18 @@
 from webscraper import *
 from datetime import datetime
 import time
+import sys
+
+# get url from args
+# print(str(sys.argv))
+url = sys.argv[1] # [0] is the script name
 
 # give it a url or it chooses for you!
-choice = input('paste a rottentomatoes url or type no\n')
-if choice == 'no':
-    url = 'https://www.rottentomatoes.com/m/suburbicon'
-else:
-    url = choice
+# choice = input('paste a rottentomatoes url or type no\n')
+# if choice == 'no':
+#     url = 'https://www.rottentomatoes.com/m/suburbicon'
+# else:
+#     url = choice
 filename = get_filename(url)
 
 # get the title of the movie
@@ -40,12 +45,14 @@ day_str = timestamp.strftime('%A')
 
 # get score from soup
 score = get_score(soup)
-print('It\'s', day_str+'@'+hour+':'+minute+ampm, 'and the TOMATOMETER® reads', score+'%')
+string = 'It\'s ' + day_str+'@'+hour+':'+minute+ampm + ' and the TOMATOMETER® reads ' + str(score)+'%' + '\n'
+print(string)
 
 # this also creates a file! yay
-# file = open(filename, 'w') # opens a file with write access
+file = open('./output/'+filename, 'a') # opens a file with write access
+file.write(string)
 
-# file.write('score @ ' + str(datetime.fromtimestamp(time.time()) ' is ' + str(score))
+file.close()
 
 # so name it with the title of the movie (maybe just use the route of the url tomatoes gives it)
 

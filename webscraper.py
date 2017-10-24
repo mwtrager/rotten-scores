@@ -34,6 +34,7 @@ def get_filename(url):
     # we're ignoring this for now. we're assuming we always get the right score on first return
         # we have been getting ['7%', '0%'] which is weird
 def get_score(soup):
+    # BUG errors out when no span available (movie not yet rated, etc)
     # find the score in the soup
     # soup('span', 'meter-value') only returns 1 span (our target) despite having more scores on screen
         # works for me!
