@@ -26,15 +26,21 @@ def get_spans(soup):
     spans = soup('span', 'meter-value')
     return spans
 
+def get_filename(url):
+    # TODO error checking if its string etc, make readable
+    return url.split('/')[-1]
+
 # NOTE currently return list of all scores because i wanna make sure im always gonna get one
+    # we're ignoring this for now. we're assuming we always get the right score on first return
+        # we have been getting ['7%', '0%'] which is weird
 def get_score(soup):
     # find the score in the soup
     # soup('span', 'meter-value') only returns 1 span (our target) despite having more scores on screen
         # works for me!
     # TODO break this up
     spans = soup('span', 'meter-value')
-    scores = []
-    for span in spans:
-        scores.append(span.get_text())
-    # score = soup.find('span', 'meter-value').span.get_text() # NOTE only finds one
-    return scores
+    # scores = []
+    # for span in spans:
+    #     scores.append(span.get_text())
+    score = soup.find('span', 'meter-value').span.get_text() # NOTE only finds one
+    return score
