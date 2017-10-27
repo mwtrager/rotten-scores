@@ -8,18 +8,16 @@ import time
 import sys
 
 # get url from args
-# print(str(sys.argv))
 url = sys.argv[1] # [0] is the script name
 
-# give it a url or it chooses for you!
-# choice = input('paste a rottentomatoes url or type no\n')
-# if choice == 'no':
-#     url = 'https://www.rottentomatoes.com/m/suburbicon'
-# else:
-#     url = choice
+def get_filename(url):
+    # TODO error checking here? or before?
+    return url.split('/')[-1]
+
+# make filename from url
 filename = get_filename(url)
 
-# get the title of the movie
+# get the title of the movie from url
     # TODO TODO rip this from html, what im doing here is a waste
 title = filename.replace('_', ' ')
 # changing to list...
@@ -43,6 +41,11 @@ minute = timestamp.strftime('%M') # returns 0 padded minute
 ampm = timestamp.strftime('%p')
 day_str = timestamp.strftime('%A')
 
+# get scorestats
+scorestats_div = get_scorestats_div(soup)
+average_rating = get_average_rating(scorestats_div)
+print('Average Rating:', average_rating)
+
 # get score from soup
 score = get_score(soup)
 string = 'It\'s ' + day_str+'@'+hour+':'+minute+ampm + ' and the TOMATOMETER® reads ' + str(score)+'%' + '\n'
@@ -53,8 +56,6 @@ file = open('./output/'+filename, 'a') # opens a file with write access
 file.write(string)
 
 file.close()
-
-# so name it with the title of the movie (maybe just use the route of the url tomatoes gives it)
 
 # TODO run this program every hour
     # scheduled bash script can easily kick it off every hour?
