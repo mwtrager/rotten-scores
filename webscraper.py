@@ -2,7 +2,6 @@
 from requests import get
 from bs4 import BeautifulSoup
 
-# TODO make a git repo
 # TODO enter in a movie title as an argument, not a url
     # eh, url is kinda easier (copy paste)
 # TODO run in bg getting results every hour?
@@ -47,14 +46,6 @@ def get_score(soup):
     # might as well use the first child div to pull the average rating out too
 
 def get_scorestats_div(soup):
-    # TODO scorestats_div('span') gives me a good list
-    # TODO just return all the stats with this method
-        # puhlease
-    div = soup.find(id='scoreStats')
-    scores = []
-    spans = div('span')
-    # for span in spans:
-    #     print(span.next_sibling)
     return soup.find(id='scoreStats')
 
 def get_average_rating(div):
@@ -65,22 +56,57 @@ def get_average_rating(div):
     target = div.contents[1].contents[2].replace(' ', '')
     target = target.replace('\n', '')
     return target
-    # return average_rating
 
-def get_num_reviews(div):
-    spans = div('span')
+def get_num_rotten(div):
+    # NOTE exclude the first span because it is average rating
+        # average rating value is
+    spans = div('span')[1:] # TODO error check needed, array out of bounds exception if list empty
+
+    # NOTE instead of this for loop
+    # use an iterator to have access to the next span containing the value
+        # if this span get_text() is rotten
+            # return the next span because it's the value
+        # if this span get_text() is fresh
+            # return the next span because it's the value
     # for span in spans:
-    #     spantext = span.get_text()
-    #         if span.
-    # target = div.contents[3].contents[2]
-        # maybe stripped_strings
-    # return target
+    #     print(span.get_text())
+
+    idx=0
+    while (idx < len(spans)):
+        # print(spans[idx].get_text().lower())
+        if spans[idx].get_text().lower() == 'rotten: ':
+            return int(spans[idx+1].get_text())
+        idx = idx + 1
+
+# NOTE I don't need this because I can just add the rotten and fresh reviews together
+    # but I should do it to check if everything adds up
+# def get_num_reviews(div):
+#     spans = div('span')
+#     # for span in spans:
+#     #     spantext = span.get_text()
+#     #         if span.
+#     target = div.contents[3].contents[2]
+#         # maybe stripped_strings
+#     return target
 
  # TODO might as well get fresh vs rotten review numbers too
     # if i do that i can just add them together to get num_reviews instead of scraping num_reviews
 def get_num_fresh(div):
-    target = div.contents[3].contents[2]
-    return something
+    # NOTE exclude the first span because it is average rating
+        # average rating value is
+    spans = div('span')[1:] # TODO error check needed, array out of bounds exception if list empty
 
-def get_num_rotten(div):
-    return something
+    # NOTE instead of this for loop
+    # use an iterator to have access to the next span containing the value
+        # if this span get_text() is rotten
+            # return the next span because it's the value
+        # if this span get_text() is fresh
+            # return the next span because it's the value
+    # for span in spans:
+    #     print(span.get_text())
+    idx=0
+    while (idx < len(spans)):
+        # print(spans[idx].get_text().lower())
+        if spans[idx].get_text().lower() == 'fresh: ':
+            return int(spans[idx+1].get_text())
+        idx = idx + 1

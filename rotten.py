@@ -43,16 +43,29 @@ day_str = timestamp.strftime('%A')
 
 # get scorestats
 scorestats_div = get_scorestats_div(soup)
+
+# get average rating
 average_rating = get_average_rating(scorestats_div)
 print('Average Rating:', average_rating)
+
+# get number of fresh reviews
+num_fresh = get_num_fresh(scorestats_div)
+print('Fresh reviews:', num_fresh)
+
+# get number of rotten reviews
+num_rotten = get_num_rotten(scorestats_div)
+print('Rotten reviews:', num_rotten)
+#
+# # print total number of reviews
+# # BUG this doesnt workkkkkkkkkkkk 43+43 isnt 4343 gotta convert these before hand
+print('Total number of reviews:', num_fresh+num_rotten)
 
 # get score from soup
 score = get_score(soup)
 string = 'It\'s ' + day_str+'@'+hour+':'+minute+ampm + ' and the TOMATOMETER® reads ' + str(score)+'%' + '\n'
 print(string)
 
-# this also creates a file! yay
-file = open('./output/'+filename, 'a') # opens a file with write access
+file = open('/Users/mtrager-home/projects/rotten-scores/output/'+filename, 'a') # opens a file to append or creates one if one doesn't exist
 file.write(string)
 
 file.close()
