@@ -57,11 +57,13 @@ num_rotten = get_num_rotten(scorestats_div)
 print('Rotten reviews:', num_rotten)
 #
 # # print total number of reviews
-# # BUG this doesnt workkkkkkkkkkkk 43+43 isnt 4343 gotta convert these before hand
 print('Total number of reviews:', num_fresh+num_rotten)
 
 # get score from soup
 score = get_score(soup)
+
+# build string
+    # TODO i should really include the date here
 string = 'It\'s ' + day_str+'@'+hour+':'+minute+ampm + ' and the TOMATOMETER® reads ' + str(score)+'%' + '\n'
 print(string)
 
