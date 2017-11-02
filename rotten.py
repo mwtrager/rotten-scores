@@ -1,15 +1,11 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-# main
-
-# TODO generate an email to nysupport@blkmtn.com at monday 3pm
-
 from webscraper import *
 from datetime import datetime
 import time
 import sys
 import os
+
+# TODO since I'm writing to files and doing all this sys and os stuff
+    # I really need to start try catching and doing error checking
 
 # get url from args
 url = sys.argv[1] # [0] is the script name'
@@ -65,9 +61,10 @@ print('Fresh reviews:', num_fresh)
 # get number of rotten reviews
 num_rotten = get_num_rotten(scorestats_div)
 print('Rotten reviews:', num_rotten)
-#
-# # print total number of reviews
-print('Total number of reviews:', num_fresh+num_rotten)
+
+# print total number of reviews
+num_reviews = get_num_reviews(scorestats_div)
+print('Total number of reviews:', num_reviews)
 
 # get score from soup
 score = get_score(soup)
