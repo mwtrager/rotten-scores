@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 # main
 
 # TODO generate an email to nysupport@blkmtn.com at monday 3pm
@@ -6,9 +9,16 @@ from webscraper import *
 from datetime import datetime
 import time
 import sys
+import os
 
 # get url from args
-url = sys.argv[1] # [0] is the script name
+url = sys.argv[1] # [0] is the script name'
+
+# default output_path to ./output
+output_path = os.getcwd() + '/output/'
+
+# build output folder
+os.makedirs(output_path, exist_ok=True)
 
 def get_filename(url):
     # TODO error checking here? or before?
@@ -67,7 +77,8 @@ score = get_score(soup)
 string = 'It\'s ' + day_str+'@'+hour+':'+minute+ampm + ' and the TOMATOMETER® reads ' + str(score)+'%' + '\n'
 print(string)
 
-file = open('/Users/mtrager-home/projects/rotten-scores/output/'+filename, 'a') # opens a file to append or creates one if one doesn't exist
+print(output_path+filename)
+file = open(output_path+filename, 'a') # opens a file to append or creates one if one doesn't exist
 file.write(string)
 
 file.close()
