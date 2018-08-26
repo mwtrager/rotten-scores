@@ -48,7 +48,6 @@ def get_num_reviews(div):
     # get total review number
     idx=0
     while (idx < len(spans)):
-        # print(spans[idx].get_text().lower())
         if spans[idx].get_text().lower() == 'reviews counted: ':
             return int(spans[idx+1].get_text())
         idx = idx + 1
@@ -60,7 +59,6 @@ def get_num_rotten(div):
     # get rotten review number
     idx=0
     while (idx < len(spans)):
-        # print(spans[idx].get_text().lower())
         if spans[idx].get_text().lower() == 'rotten: ':
             return int(spans[idx+1].get_text())
         idx = idx + 1
@@ -72,7 +70,11 @@ def get_num_fresh(div):
     # get fresh review number
     idx=0
     while (idx < len(spans)):
-        # print(spans[idx].get_text().lower())
         if spans[idx].get_text().lower() == 'fresh: ':
             return int(spans[idx+1].get_text())
         idx = idx + 1
+
+def is_scored(soup):
+    # TODO check if there is a score yet
+    target = soup('p', 'noReviewText')
+    return not len(target) > 0
