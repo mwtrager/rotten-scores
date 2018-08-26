@@ -10,10 +10,6 @@ import os
 # get url from args
 url = sys.argv[1] # [0] is the script name'
 
-# fix encoding error?
-# in_stream = io.BytesIO(url.encode('utf-8'))
-# sys.stdin = io.TextIOWrapper(in_stream, encoding='utf-8')
-
 # default output_path to ./output
 output_path = os.getcwd() + '/output/'
 
