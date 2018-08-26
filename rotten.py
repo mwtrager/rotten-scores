@@ -37,7 +37,12 @@ print('Let\'s read the TOMATOMETER® for', filetitle)
 # get the webpage and make some soup
 print('requesting rottentomatoes...')
 soup = soupify(url)
+# -- testing
+print('checking for score...')
+if is_scored(soup):
+    print('we got a score...')
 
+# -- end
 # timestamp is a datetime object with a lot of stuff avail to it
 timestamp = datetime.fromtimestamp(time.time())
 
@@ -74,10 +79,11 @@ score = get_score(soup)
 string = 'It\'s ' + day_str+'@'+hour+':'+minute+ampm + ' and the TOMATOMETER® reads ' + str(score)+'%' + '\n'
 print(string)
 
+# write results to file and close file
+print('Results written to:')
 print(output_path+filename)
 file = open(output_path+filename, 'a') # opens a file to append or creates one if one doesn't exist
 file.write(string)
-
 file.close()
 
 # TODO run this program every hour
