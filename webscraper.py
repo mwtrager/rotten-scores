@@ -9,7 +9,7 @@ def soupify(webpage):
     r = get(webpage)
 
     # get html from response
-    # TODO can check for doctype=html formatt
+    # TODO can check for doctype=html format
     html = r.text
 
     # make me soup!
@@ -78,3 +78,7 @@ def is_scored(soup):
     # TODO check if there is a score yet
     target = soup('p', 'noReviewText')
     return not len(target) > 0
+
+def get_movie_title(soup):
+    title = soup.find(id='movie-title').get_text().strip()
+    return title
